@@ -1,4 +1,40 @@
-
+name: learn-github-actions
+run-name: ${{ github.actor }} is learning GitHub Actions
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      - run: npm install -g bats
+      - run: bats -v
+  build: 
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build an image from docker
+        run: 
+          docker build -t docker.io/my-organization/my-app:${{ github.sha }} .
+      - name: install Trivy
+        run: 
+          wget https://github.com/aquasecurity/trivy/releases/download/v0.19.2/trivy_0.19.2_Linux-64bit.tar.gz
+          tar zxvf trivy_0.19.2_Linux-64bit.tar.gz
+          sudo mv trivy /usr/local/bin/trivy
+          rm trivy_0.19.2_Linux-64bit.tar.gz
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with: 
+          image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,liberary'
+          severity: 'CRITICAL,HIGH'
 
 
             
