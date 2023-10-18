@@ -15,11 +15,17 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkou
+      - name: Checkout
         uses: actions/checkout@v2
       - name: Build an image from docker
         run: 
           docker build -t docker.io/my-organization/my-app:${{ github.sha }} .
+      - name: install Trivy
+        run: 
+          wget https://github.com/aquasecurity/trivy/releases/download/v0.19.2/trivy_0.19.2_Linux-64bit.tar.gz
+          tar zxvf trivy_0.19.2_Linux-64bit.tar.gz
+          sudo mv trivy /usr/local/bin/trivy
+          rm trivy_0.19.2_Linux-64bit.tar.gz
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with: 
