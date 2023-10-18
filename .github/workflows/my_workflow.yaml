@@ -1,20 +1,4 @@
-#This is a yaml file to try scan
-name: tryToScan
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-jobs:
-    my-job:
-        name: My Job
-        runs-on: ubuntu-latest
-        steps:
-            - 
-                name: Send
-                id: slack
-                uses: slackapi/slack-github-action@v1.24.0
-                env:
-                    SLACK_WEBHOOK_URL: ${{ }}
+
+
 
             
