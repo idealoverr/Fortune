@@ -1,4 +1,4 @@
-#This is a yaml file
+#This is a yaml file to try scan
 name: tryToScan
 on:
   push:
@@ -6,21 +6,15 @@ on:
       - main
   pull_request:
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Build an image from Dockerfile
-        run: |
-          docker build -t docker.io/my-organization/my-app:${{ github.sha }} .
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
-          format: 'table'
-          exit-code: '1'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL'
+    my-job:
+        name: My Job
+        runs-on: ubuntu-latest
+        steps:
+            - 
+                name: Send
+                id: slack
+                uses: slackapi/slack-github-action@v1.24.0
+                env:
+                    SLACK_WEBHOOK_URL: ${{ }}
+
+            
