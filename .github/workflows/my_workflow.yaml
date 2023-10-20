@@ -47,9 +47,7 @@ jobs:
         with: 
           payload: |
             {
-            "text": "GitHub Action build result: ${{ job.status }}",
-          
-            "blocks": [
+              "blocks": [
               {
                 "type": "section",
                 "text": {
