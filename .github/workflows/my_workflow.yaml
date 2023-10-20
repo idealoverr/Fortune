@@ -40,7 +40,11 @@ jobs:
           exit-code: '1'
           ignore-unfixed: true
           vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'      
+          severity: 'CRITICAL' 
+  slack: 
+    name: Slack
+    runs-on: ubuntu-latest
+    steps:     
       - name: Send GitHub Action trigger data to Slack workflow
         id: slack
         uses: slackapi/slack-github-action@v1.24.0
