@@ -47,7 +47,17 @@ jobs:
         with: 
           payload: |
            {
-             "text":"Godd Afternoon"
+             "blocks":[
+               {
+                "type":"section",
+                "fileds":[
+                   {
+                    "type":"mrkdwn",
+                    "text":"*name:*\nTest"
+                   }
+                ]
+               }
+             ]
            }
            
         env:
