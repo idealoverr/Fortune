@@ -52,8 +52,8 @@ jobs:
                 "type":"section",
                 "fileds":[
                    {
-                    "type":"mrkdwn",
-                    "text":"*name:*\nTest"
+                     "type":"mrkdwn",
+                     "text":"*name:*\nTest"
                    }
                 ]
                }
