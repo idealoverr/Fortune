@@ -41,24 +41,37 @@ jobs:
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL'     
-      - name: Send GitHub Action trigger data to Slack workflow
+      - name: Send to Slack workflow
         id: slack
         uses: slackapi/slack-github-action@v1.24.0
         with: 
-          payload: |
-           {
-            "blocks": [
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "New Paid Time Off request from <example.com|Fred Enriquez>\n\n<https://example.com|View request>"
-                }
+          payload: | 
+           {  
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "New Paid Time Off request from <example.com|Fred Enriquez>\n\n<https://example.com|View request>"
+                },
+                {
+                 "type": "input",
+                 "element": {
+                 "type": "plain_text_input"
+                 },
+                "label": {
+                 "type": "plain_text",
+                 "text": "Label",
+                "emoji": true
+               }
+              }        
+
               }
             ]
            }
            
         env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 
