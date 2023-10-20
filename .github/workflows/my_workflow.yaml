@@ -47,20 +47,8 @@ jobs:
         with: 
           payload: |
            {
-             "type":"section",
-             "text":
-              {
-                "type":"mrkdwn",
-                "text":"*New:* Paid Time Off"
-              },
-              "text":
-              {
-                "type":"mrkdwn"
-                "text":"*Reason*:NO"
-
-              }
-
-            }
+             "text":"Godd Afternoon"
+           }
            
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
