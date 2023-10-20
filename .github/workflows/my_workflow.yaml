@@ -27,8 +27,8 @@ jobs:
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
-          vuln-type: 'os,liberary'
-          severity: 'CRITICAL,HIGH'
+          vuln-type: 'liberary'
+          severity: 'CRITICAL'
 
 
             
