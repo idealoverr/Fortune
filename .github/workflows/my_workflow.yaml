@@ -48,7 +48,7 @@ jobs:
           payload: |
            {
 
-           "blocks": [
+              "blocks": [
               {
                 "type": "section",
                 "text": {
