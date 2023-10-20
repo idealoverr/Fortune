@@ -47,17 +47,15 @@ jobs:
         with: 
           payload: |
            {
-             "blocks":[
-               {
-                "type":"section",
-                "fileds":[
-                   {
-                     "type":"mrkdwn",
-                     "text":"*name:*\nTest"
-                   }
-                ]
-               }
-             ]
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "New Paid Time Off request from <example.com|Fred Enriquez>\n\n<https://example.com|View request>"
+                }
+              }
+            ]
            }
            
         env:
