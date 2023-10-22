@@ -32,6 +32,7 @@ jobs:
       - name: Build an image from docker
         run: 
             docker build -t docker.io/my-organization/my-app:${{ github.sha }} .
+            #Scan
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with: 
@@ -43,36 +44,14 @@ jobs:
           severity: 'CRITICAL'     
       - name: Send to Slack workflow
         id: slack
-        uses: slackapi/slack-github-action@v1.24.0
-        with: 
-          payload: | 
-           {  
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "New Paid Time Off request from <example.com|Fred Enriquez>\n\n<https://example.com|View request>"
-                },
-                {
-                 "type": "input",
-                 "element": {
-                 "type": "plain_text_input"
-                 },
-                "label": {
-                 "type": "plain_text",
-                 "text": "Label",
-                "emoji": true
-               }
-              }        
-
-              }
-            ]
-           }
-           
+        uses: slackapi/slack-github-action@v1.24.0          
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          run: |
+           curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "Scan completed for your repository: $GITHUB_REPOSITORY"
+           }' $SLACK_WEBHOOK
 
 
 
