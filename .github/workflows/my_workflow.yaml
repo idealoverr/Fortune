@@ -45,7 +45,6 @@ jobs:
             tags: user/app:latest           
       - name: Send to Slack workflow      
         env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
             curl -X POST -H 'Content-type: application/json' --data '{
