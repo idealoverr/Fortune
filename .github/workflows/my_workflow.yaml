@@ -36,20 +36,14 @@ jobs:
           exit-code: '1'
           ignore-unfixed: true
           vuln-type: 'os,library'
-          severity: 'CRITICAL'
-      -
-        name: Build and push
-        uses: docker/build-push-action@v5
+          severity: 'CRITICAL'          
+      - name: Send custom JSON data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.24.0
         with:
-            push: true
-            tags: user/app:latest           
-      - name: Send to Slack workflow      
+              payload-file-path: "./payload-slack-content.json"
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        run: |
-            curl -X POST -H 'Content-type: application/json' --data '{
-            "text": "Vulnerabilities found in the code. Scan report attached."
-            }' $SLACK_WEBHOOK
+              SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 
 
