@@ -93,12 +93,13 @@ jobs:
           env: 
             COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
             COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-        - name: send successful message to slack
+        - name: Send successful message to slack
           uses: slackapi/slack-github-action@v1.24.0
           with :
             channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
             payload: |
              {
+              ""
               "blocks": [
                 {
                   "type": "section",
@@ -129,7 +130,6 @@ jobs:
               ]
              } 
           env: 
-            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
             SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN}}
           
 
