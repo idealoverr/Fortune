@@ -13,6 +13,7 @@ jobs:
         SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
         SLACK_ICON: https://github.com/rtCamp.png?size=48
         SLACK_MESSAGE: 'Post Content :rocket:'
-        SLACK_TITLE: Post Title , URL
-
+        SLACK_TITLE: Post Title 
         SLACK_WEBHOOK: ${{ secrets.TEST_WEBHOOK}}
+        SLACK_MESSAGE1: 'Get my test'
+        SLACK_TITLE1: URL
