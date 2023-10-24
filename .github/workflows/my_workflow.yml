@@ -110,7 +110,7 @@ jobs:
                       {
                         "Name": "Liu Yangxin",
                         "Matriculation number": "test",
-                        "Email": text@gmail.com,
+                        "Email": "text@gmail.com",
                         "Repository": "In Progress",
                         "URL": "https://docker.com"
                       }
