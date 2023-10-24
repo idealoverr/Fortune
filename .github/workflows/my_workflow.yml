@@ -95,6 +95,31 @@ jobs:
           env: 
             COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
             COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+        - name: send successful message to slack
+          uses: slackapi/slack-github-action@v1.24.0
+          with :
+            channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
+            payload: |
+             {
+              "Ref": ${{ github.ref }}
+              "Event":${{ github.event_name }}
+              "Actions URL": ${{ github.run_url }}
+              "Commit": ${{ github.sha }}
+              "attachments":[
+                {
+                  "fields:"[
+                    {
+                      "Name": "Liu Yangxin"
+                      "Matriculation number":"new"
+                      "Emaile":text@gmail.com
+                      "Git":"https://github.com/idealoverr/Fortune"
+                      "Image":"https://hub.docker.com/repository/docker/liuyangxin/newone/general"
+                    }
+                  ]
+                }
+              ]
+             }
+
           
 
 
