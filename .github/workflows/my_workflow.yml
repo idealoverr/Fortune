@@ -36,7 +36,7 @@ jobs:
               severity: 'CRITICAL'
     failed-scan:
       runs-on: ubuntu-latest
-      needs: scan
+      needs: succcessful-scan
       name: failed to scan
       if: failure()
       steps:
