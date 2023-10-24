@@ -95,41 +95,31 @@ jobs:
             COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
         - name: Send successful message to slack
           uses: slackapi/slack-github-action@v1.24.0
+          id: successful_slack
           with :
             channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
             payload: |
-             {
-              ""
-              "blocks": [
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Ref:*\nrefs/heads/v1.0"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Event:*\npush"
-                    }
-                  ]
-                },
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Action URL:*\n<https://github.com/idealoverr/Fortune/commit/4805467cf2a6489ee2e97fd56ec7a88715924234/checks|My workflow>"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Type:*\n<https://github.com/idealoverr/Fortune/commit/4805467cf2a6489ee2e97fd56ec7a88715924234|T051XF>"
+              {
+                "Ref": ${{ github.ref }},
+                "Event": ${{ github.event_name }},
+                "Actions URL": ${{ github.run_url }},
+                "Commit": ${{ github.sha }},
+                "attachments": [
+                  {
+                    "fields": [
+                      {
+                        "Name": "Liu Yangxin",
+                        "Matriculation number": "test",
+                        "Email": text@gmail.com,
+                        "Repository": "In Progress",
+                        "URL": "https://docker.com"
                     }
                   ]
                 }
               ]
-             } 
+            } 
           env: 
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
             SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN}}
           
 
