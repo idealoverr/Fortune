@@ -32,7 +32,7 @@ jobs:
               exit-code: '1'
               ignore-unfixed: true
               vuln-type: 'os,library'
-              output: '/output.txt'
+              output: 'C:\Users\94079\Desktop\output.txt'
               severity: 'High'
     failed-scan:
       runs-on: ubuntu-latest
@@ -54,7 +54,7 @@ jobs:
           with:
            slack_token: ${{ secrets.TEST_TOKEN }}
            channel_id: ${{ secrets.TEST_CHANNEL_ID }}
-           file_path: 'output.txt'
+           file_path: 'C:\Users\94079\Desktop\output.txt'
            initial_comment: 'Scan report by Liu Yangxin'
     docker:
       runs-on: ubuntu-latest
