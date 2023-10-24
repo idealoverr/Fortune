@@ -40,20 +40,15 @@ jobs:
       name: failed to scan
       if: failure()
       steps:
-        - name: send failed notification to slack
-          uses: slackapi/slack-github-action@v1.24.0
-          with: 
-            payload: |
-             {
-               "Ref":"Refs/heads/v1.0"
-               "Event":"Push"
-               "Action URL": "this ia a link"
-               "Commit ID": "This is a link"
-               "Scan Failed-Liu Yangxin":"Failed trivy scan, see uploaded report"
-             }
+        - name: Slack Notification
+          uses: rtCamp/action-slack-notify@v2
           env:
-            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-            SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN}}
+              SLACK_CHANNEL: general
+              SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+              SLACK_ICON: https://github.com/rtCamp.png?size=48
+              SLACK_MESSAGE: "Name:Liu Yangxin\nMatribulation:e1221833\nEmail:yangxinliuaz@gmail.com\nGit:https://github.com/idealoverr/Fortune\nImage:https://hub.docker.com/repository/docker/liuyangxin/newone/general"
+              SLACK_TITLE: Message 
+              SLACK_WEBHOOK: ${{ secrets.TEST_WEBHOOK}}
         - name: send txt scan report
           uses: MeilCli/slack-upload-file@v3
           with:
@@ -94,34 +89,15 @@ jobs:
           env: 
             COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
             COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-        - name: Send successful message to slack
-          uses: slackapi/slack-github-action@v1.24.0
-          id: successful_slack
-          with :
-            channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
-            payload: |
-              {
-                "Ref": "Refs/heads/v1.0",
-                "Event": "Push",
-                "Actions URL": "<https://github.com/idealoverr/Fortune/commit/bdf47da40789d48ce57108ea6455dcbd929d014c/checks|this ia a link>",
-                "Commit": "<https://github.com/idealoverr/Fortune/commit/bdf47da40789d48ce57108ea6455dcbd929d014c|This is a link>",
-                "attachments": [
-                  {
-                    "fields": [
-                      {
-                        "Name": "Liu Yangxin",
-                        "Matriculation number": "test",
-                        "Email": "text@gmail.com",
-                        "Repository": "In Progress",
-                        "URL": "https://docker.com"
-                      }
-                    ]
-                  }
-                ]
-              } 
-          env: 
-            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-            SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN}}
+        - name: Slack Notification
+          uses: rtCamp/action-slack-notify@v2
+          env:
+                SLACK_CHANNEL: general
+                SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+                SLACK_ICON: https://github.com/rtCamp.png?size=48
+                SLACK_MESSAGE: "Name:Liu Yangxin\nMatribulation:e1221833\nEmail:yangxinliuaz@gmail.com\nGit:https://github.com/idealoverr/Fortune\nImage:https://hub.docker.com/repository/docker/liuyangxin/newone/general"
+                SLACK_TITLE: Message 
+                SLACK_WEBHOOK: ${{ secrets.TEST_WEBHOOK}}
           
 
 
