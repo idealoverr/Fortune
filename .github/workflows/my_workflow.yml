@@ -45,10 +45,10 @@ jobs:
           with: 
             payload: |
              {
-               "Ref":${{ github.ref }}
-               "Event":${{ github.event_name }}
-               "Action URL": ${{ github.run_url }}
-               "Commit ID":${{ github.sha }}
+               "Ref":"Refs/heads/v1.0"
+               "Event":"Push"
+               "Action URL": "<https://github.com/idealoverr/Fortune/commit/bdf47da40789d48ce57108ea6455dcbd929d014c/checks|this ia a link>"
+               "Commit ID": "<https://github.com/idealoverr/Fortune/commit/bdf47da40789d48ce57108ea6455dcbd929d014c|This is a link>"
                "Scan Failed-Liu Yangxin":"Failed trivy scan, see uploaded report"
              }
           env:
@@ -100,10 +100,10 @@ jobs:
             channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
             payload: |
               {
-                "Ref": "Nothing",
+                "Ref": "Refs/heads/v1.0",
                 "Event": "Push",
-                "Actions URL": "this ia a link",
-                "Commit": "This is a link",
+                "Actions URL": "<https://github.com/idealoverr/Fortune/commit/bdf47da40789d48ce57108ea6455dcbd929d014c/checks|this ia a link>",
+                "Commit": "<https://github.com/idealoverr/Fortune/commit/bdf47da40789d48ce57108ea6455dcbd929d014c|This is a link>",
                 "attachments": [
                   {
                     "fields": [
