@@ -84,7 +84,7 @@ jobs:
           uses: docker/build-push-action@v5
           with: 
             push: true
-            tags: newone/app:latest
+            tags: liuyangxin/newone:${{ github.sha }}
         - name: Install cosign
           uses: sigstore/cosign-installer@v3.1.1
           with: 
