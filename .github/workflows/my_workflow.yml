@@ -100,10 +100,10 @@ jobs:
             channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
             payload: |
               {
-                "Ref": ${{ github.ref }},
-                "Event": ${{ github.event_name }},
-                "Actions URL": ${{ github.run_url }},
-                "Commit": ${{ github.sha }},
+                "Ref": "Nothing",
+                "Event": "Push",
+                "Actions URL": "this ia a link",
+                "Commit": "This is a link",
                 "attachments": [
                   {
                     "fields": [
