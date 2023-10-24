@@ -32,7 +32,7 @@ jobs:
               exit-code: '1'
               ignore-unfixed: true
               vuln-type: 'os,library'
-              output: './output'
+              output: 'output.txt'
               severity: 'HIGH'
     failed-scan:
       runs-on: ubuntu-latest
@@ -49,12 +49,18 @@ jobs:
               SLACK_MESSAGE: "Name:Liu Yangxin\nMatribulation:e1221833\nEmail:yangxinliuaz@gmail.com\nGit:https://github.com/idealoverr/Fortune\nImage:https://hub.docker.com/repository/docker/liuyangxin/newone/general"
               SLACK_TITLE: Message 
               SLACK_WEBHOOK: ${{ secrets.TEST_WEBHOOK}}
+        - name: Get Report from Artifact
+          uses: actions/download-artifact@v2
+          with: 
+            name: Trivy vulnerability scanner
+        
         - name: send txt scan report
           uses: MeilCli/slack-upload-file@v3
           with:
            slack_token: ${{ secrets.TEST_TOKEN }}
            channel_id: ${{ secrets.TEST_CHANNEL_ID }}
-           file_path: './output'
+           file_type: 'text'
+
            initial_comment: 'Scan report by Liu Yangxin'
     docker:
       runs-on: ubuntu-latest
