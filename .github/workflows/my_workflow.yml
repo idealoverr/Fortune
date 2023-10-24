@@ -99,24 +99,35 @@ jobs:
             channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
             payload: |
              {
-               "Ref": ${{ github.ref }}
-               "Event":${{ github.event_name }}
-               "Actions URL": ${{ github.run_url }}
-               "Commit": ${{ github.sha }}
-               "attachments":[
+              "blocks": [
                 {
-                  "fields:"[
+                  "type": "section",
+                  "fields": [
                     {
-                      "Name": "Liu Yangxin",
-                      "Matriculation number":"new",
-                      "Emaile":text@gmail.com,
-                      "Git":"https://github.com/idealoverr/Fortune",
-                      "Image":"https://hub.docker.com/repository/docker/liuyangxin/newone/general"
+                      "type": "mrkdwn",
+                      "text": "*Ref:*\nrefs/heads/v1.0"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Event:*\npush"
+                    }
+                  ]
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Action URL:*\n<https://github.com/idealoverr/Fortune/commit/4805467cf2a6489ee2e97fd56ec7a88715924234/checks|My workflow>"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Type:*\n<https://github.com/idealoverr/Fortune/commit/4805467cf2a6489ee2e97fd56ec7a88715924234|T051XF>"
                     }
                   ]
                 }
               ]
-             }
+             } 
           env: 
             SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
             SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN}}
