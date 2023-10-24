@@ -47,12 +47,13 @@ jobs:
              {
                "Ref":"Refs/heads/v1.0"
                "Event":"Push"
-               "Action URL": "<https://github.com/idealoverr/Fortune/commit/bdf47da40789d48ce57108ea6455dcbd929d014c/checks|this ia a link>"
-               "Commit ID": "<https://github.com/idealoverr/Fortune/commit/bdf47da40789d48ce57108ea6455dcbd929d014c|This is a link>"
+               "Action URL": "this ia a link"
+               "Commit ID": "This is a link"
                "Scan Failed-Liu Yangxin":"Failed trivy scan, see uploaded report"
              }
           env:
             SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+            SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN}}
         - name: send txt scan report
           uses: MeilCli/slack-upload-file@v3
           with:
