@@ -45,13 +45,11 @@ jobs:
           with: 
             payload: |
              {
-              "Ref":${{ github.ref }}
-              "Event":${{ github.event_name }}
-              "Action URL": ${{ github.run_url }}
-              "Commit ID":${{ github.sha }}
-              "Scan Failed-Liu Yangxin":"Failed trivy scan, see uploaded report"
-
-
+               "Ref":${{ github.ref }}
+               "Event":${{ github.event_name }}
+               "Action URL": ${{ github.run_url }}
+               "Commit ID":${{ github.sha }}
+               "Scan Failed-Liu Yangxin":"Failed trivy scan, see uploaded report"
              }
           env:
             SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -101,18 +99,18 @@ jobs:
             channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
             payload: |
              {
-              "Ref": ${{ github.ref }}
-              "Event":${{ github.event_name }}
-              "Actions URL": ${{ github.run_url }}
-              "Commit": ${{ github.sha }}
-              "attachments":[
+               "Ref": ${{ github.ref }}
+               "Event":${{ github.event_name }}
+               "Actions URL": ${{ github.run_url }}
+               "Commit": ${{ github.sha }}
+               "attachments":[
                 {
                   "fields:"[
                     {
-                      "Name": "Liu Yangxin"
-                      "Matriculation number":"new"
-                      "Emaile":text@gmail.com
-                      "Git":"https://github.com/idealoverr/Fortune"
+                      "Name": "Liu Yangxin",
+                      "Matriculation number":"new",
+                      "Emaile":text@gmail.com,
+                      "Git":"https://github.com/idealoverr/Fortune",
                       "Image":"https://hub.docker.com/repository/docker/liuyangxin/newone/general"
                     }
                   ]
