@@ -12,6 +12,6 @@ jobs:
         SLACK_CHANNEL: general
         SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
         SLACK_ICON: https://github.com/rtCamp.png?size=48
-        SLACK_MESSAGE: "Name:Liu Yangxin\nMatribulation:e1221833\nEmail:<e1221833@u.nus.edu|e1221833@u.nus.edu>"
+        SLACK_MESSAGE: "Name:Liu Yangxin\nMatribulation:e1221833\nEmail:<yangxinliuaz@gmail.com|yangxinliuaz@gmail.com>"
         SLACK_TITLE: Message 
         SLACK_WEBHOOK: ${{ secrets.TEST_WEBHOOK}}
