@@ -33,7 +33,7 @@ jobs:
               ignore-unfixed: true
               vuln-type: 'os,library'
               output: 'output.txt'
-              severity: 'CRITICAL'
+              severity: 'High'
     failed-scan:
       runs-on: ubuntu-latest
       needs: succcessful-scan
