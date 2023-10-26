@@ -90,16 +90,16 @@ jobs:
           COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
 
 
-      - name: send success notification
+      - name: Slack Notification
         id: slack_success
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
+          SLACK_CHANNEL: ${{ secrets.TEST_CHANNEL_ID }}
           SLACK_COLOR: ${{ job.status }} 
           SLACK_MESSAGE: "Name:\nMatribulation:\nEmail:@gmail.com\nGit:https://github.com/idealoverr/Fortune\nImage:https://hub.docker.com/repository/docker/liuyangxin/newone/general"
           SLACK_TITLE: Message  
           SLACK_USERNAME: 'DipSA 57 CICD'
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK: ${{ secrets.TEST_WEBHOOK }}
           
 
 
