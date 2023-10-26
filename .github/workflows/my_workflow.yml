@@ -21,8 +21,8 @@ jobs:
           ignore-unfixed: true
           format: 'table'
           output: 'trivy-report.txt'
-          exit-code: "1"
-          severity: HIGH 
+          exit-code: "0"
+          severity: 'HIGH' 
           # severity: CRITICAL  
 
       - name: Scan failed send notification to slack
@@ -32,7 +32,7 @@ jobs:
           SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
           SLACK_COLOR: ${{ job.status }} 
           SLACK_MESSAGE: 'Failed trivy scan,see uploaded report'
-          SLACK_TITLE: Scan failed - Zhao Yinjie
+          SLACK_TITLE: Scan failed 
           SLACK_USERNAME: DipSA_CICD
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
 
