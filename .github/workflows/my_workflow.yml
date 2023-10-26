@@ -5,48 +5,65 @@ on:
     branches:
      - 'v[0-9]+.[0-9]+'
 jobs:
-  trivy-scan:
-    runs-on: ubuntu-latest
-    name: Scan the code base for vulnerabilities
-    if: ${{ !startsWith(github.event.head_commit.message, '#NORUN') }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run Trivy vulnerability scanner in repo mode
-        id: scan
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: 'fs'
-          ignore-unfixed: true
-          format: 'table'
-          output: 'trivy-report.txt'
-          exit-code: "0"
-          severity: 'HIGH' 
-          # severity: CRITICAL  
-
-      - name: Scan failed send notification to slack
-        if: ${{ failure() && steps.scan.conclusion == 'failure' }}
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
-          SLACK_COLOR: ${{ job.status }} 
-          SLACK_MESSAGE: 'Failed trivy scan,see uploaded report'
-          SLACK_TITLE: Scan failed 
-          SLACK_USERNAME: DipSA_CICD
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-
-      - name: slack send trivy scan reports
-        if: ${{ failure() && steps.scan.conclusion == 'failure' }}
-        uses: MeilCli/slack-upload-file@v3
-        with:
-          slack_token: ${{ secrets.SLACK_BOT_TOKEN }}
-          channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
-          file_path: 'trivy-report.txt'
-          initial_comment: 'Scan report by '
-  docker:
+    commit-message:
       runs-on: ubuntu-latest
-      needs: trivy-scan
+      name: define_message_vali
+      steps:
+        - uses: actions/checkout@v2
+        - id: Check
+          uses: uptownaravi/verify-commit-message-action@v2 #While we commit our code adding required commit message helps others understand the code and why its being added. This GitHub Action will help in validating the commit message as per the regex value passed The job will pass if the regex matches or exits with return code 1
+          with: 
+            regex: '^(?!#NORUN)' #The pipeline should not run if the commit message starts with #NORUN
+    succcessful-scan:
+        runs-on: ubuntu-latest
+        name: scanner
+        needs: commit-message #needs is a key, it can present anything you need
+        if: success()
+        steps: 
+          - name: Checkout
+            uses: actions/checkout@v3
+          - name: Build an image from Dockerfile
+            run: |
+              docker build -t docker.io/my-organization/my-app:${{ github.sha }} .
+          - name: Run Trivy vulnerability scanner
+            id: trivy
+            uses: aquasecurity/trivy-action@master
+            with: 
+              scan-type: 'fs'
+              ignore-unfixed: true
+              image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
+              format: 'table'
+              exit-code: '1'
+              vuln-type: 'os,library'
+              output: 'text.txt'
+              severity: 'CRITICAL'
+          
+    failed-scan:
+      runs-on: ubuntu-latest
+      needs: succcessful-scan
+      name: failed to scan
+      if: failure()
+      steps:
+        - name: Slack Notification
+          uses: rtCamp/action-slack-notify@v2
+          env:
+              SLACK_CHANNEL: general
+              SLACK_COLOR: ${{ job.status }} 
+              SLACK_ICON: https://github.com/rtCamp.png?size=48
+              SLACK_MESSAGE: "failed trivy scan, author:"
+              SLACK_WEBHOOK: ${{ secrets.TEST_WEBHOOK}}
+        
+        - name: Send txt scan report
+          if: failure()
+          uses: MeilCli/slack-upload-file@v3
+          with:
+           slack_token: ${{ secrets.SLACK_BOT_TOKEN }}
+           channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
+           file_path: 'text.txt'
+           initial_comment: 'Scan report by '
+    docker:
+      runs-on: ubuntu-latest
+      needs: succcessful-scan
       if: success()
       permissions:
         contents: read
@@ -83,9 +100,9 @@ jobs:
                 SLACK_CHANNEL: general
                 SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
                 SLACK_ICON: https://github.com/rtCamp.png?size=48
-                SLACK_MESSAGE: "Name:\nMatribulation:\nEmail:@gmail.com\nGit:https://github.com/idealoverr/Fortune\nImage:https://hub.docker.com/repository/docker/liuyangxin/newone/general"
+                SLACK_MESSAGE: "Name:Liu Yangxin\nMatribulation:E1221833\nEmail:yangxinliu@gmail.com\nGit:https://github.com/idealoverr/Fortune\nImage:https://hub.docker.com/repository/docker/liuyangxin/newone/general"
                 SLACK_TITLE: Message 
-                SLACK_WEBHOOK: ${{ secrets.TEST_WEBHOOK}}
+                SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL}}
           
 
 
