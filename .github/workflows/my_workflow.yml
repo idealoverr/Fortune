@@ -29,7 +29,7 @@ jobs:
             with: 
               scan-type: 'fs'
               ignore-unfixed: true
-              format: 'table'
+              format: 'template'
               exit-code: '1'
               vuln-type: 'os,library'
               output: 'text.txt'
@@ -45,12 +45,12 @@ jobs:
           uses: rtCamp/action-slack-notify@v2
           env:
               SLACK_CHANNEL: general
-              SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+              SLACK_COLOR: ${{ job.status }} 
               SLACK_ICON: https://github.com/rtCamp.png?size=48
               SLACK_MESSAGE: "failed trivy scan, author:Liu Yangxin"
               SLACK_WEBHOOK: ${{ secrets.TEST_WEBHOOK}}
         
-        - name: send txt scan report
+        - name: Send txt scan report
           uses: MeilCli/slack-upload-file@v3
           with:
            slack_token: ${{ secrets.TEST_TOKEN }}
