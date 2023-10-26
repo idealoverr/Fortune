@@ -15,3 +15,13 @@ jobs:
         SLACK_MESSAGE: "Name:Liu Yangxin\nMatribulation:e1221833\nEmail:yangxinliuaz@gmail.com\nGit:https://github.com/idealoverr/Fortune\nImage:https://hub.docker.com/repository/docker/liuyangxin/newone/general"
         SLACK_TITLE: Message 
         SLACK_WEBHOOK: ${{ secrets.TEST_WEBHOOK}}
+    - uses: MeilCli/slack-upload-file@v3
+      with:
+          slack_token: ${{ secrets.TEST_TOKEN }}
+          channel_id: ${{ secrets.TEST_CHANNEL_ID }}
+          content: 'file content'
+          file_type: 'text'
+          file_name: 'text.txt'
+          title: 'title of file'
+          initial_comment: 'post by slack-upload-file'
+          # thread_ts: 'option'
