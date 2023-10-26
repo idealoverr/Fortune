@@ -96,13 +96,8 @@ jobs:
         env:
           SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
           SLACK_COLOR: ${{ job.status }} 
-          SLACK_MESSAGE: |
-            Name: 
-            Metriculation: 
-            Email: 
-            Repository: https://github.com/${{ github.repository }}
-            Docker Hub URL:  
-          SLACK_TITLE: 'Image build and signed'
+          SLACK_MESSAGE: "Name:\nMatribulation:\nEmail:@gmail.com\nGit:https://github.com/idealoverr/Fortune\nImage:https://hub.docker.com/repository/docker/liuyangxin/newone/general"
+          SLACK_TITLE: Message  
           SLACK_USERNAME: 'DipSA 57 CICD'
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           
