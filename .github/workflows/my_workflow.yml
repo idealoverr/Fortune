@@ -42,7 +42,6 @@ jobs:
            channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
            file_path: 'trivy-report.txt'
            initial_comment: 'Scan report by'
-
   build_and_push:
     runs-on: ubuntu-latest
     needs: trivy-scan-code
@@ -67,24 +66,23 @@ jobs:
         with:
           push: true
           tags: liuyangxin/newone:${{ github.sha }}          
-      - name: Install Cosign
+      - name: Cosign
         uses: sigstore/cosign-installer@v3.1.1
         with:
           cosign-release: 'v2.2.0' 
-      - name: Sign image with a private key
+      - name: Sign image
         run: |
-          cosign sign --yes --key env://COSIGN_PRIVATE_KEY liuyangxin/newone:${{ github.sha }}
+              cosign sign --yes --key env://COSIGN_PRIVATE_KEY liuyangxin/newone:${{ github.sha }}
         env:
-         
-          COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
-          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+           COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+           COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
       - name: Slack Notification
         id: slack_success
         uses: rtCamp/action-slack-notify@v2
         env:
            SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
            SLACK_COLOR: ${{ job.status }} 
-           SLACK_MESSAGE: "Name:\nMatribulation:\nEmail:@gmail.com\nGit:https://github.com/idealoverr/Fortune\nImage:https://hub.docker.com/repository/docker/liuyangxin/newone/general"
+           SLACK_MESSAGE: "Name:Liu Yangxin\nMatribulation:E1221833\nEmail:e1221833@u.nus.edu\nGit:https://github.com/idealoverr/Fortune\nImage:https://hub.docker.com/repository/docker/liuyangxin/newone/general"
            SLACK_TITLE: Message  
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           
