@@ -43,7 +43,7 @@ jobs:
             with:
                slack_token: ${{ secrets.SLACK_BOT_TOKEN }}
                channel_id: ${{ secrets.SLACK_CHANNEL_ID}}
-               file_path: 'text.txt'
+               file_path: text.txt
                initial_comment: 'Scan report by '
     docker:
       runs-on: ubuntu-latest
