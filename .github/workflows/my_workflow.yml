@@ -97,10 +97,11 @@ jobs:
         - name: Slack Notification
           uses: rtCamp/action-slack-notify@v2
           env:
-                SLACK_CHANNEL: general
+                SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID}}
                 SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
                 SLACK_ICON: https://github.com/rtCamp.png?size=48
                 SLACK_MESSAGE: "Name:Liu Yangxin\nMatribulation:E1221833\nEmail:yangxinliu@gmail.com\nGit:https://github.com/idealoverr/Fortune\nImage:https://hub.docker.com/repository/docker/liuyangxin/newone/general"
+                SLACK_USERNAME: 'DipSA 57 CICD'
                 SLACK_TITLE: Message 
                 SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL}}
           
