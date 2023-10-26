@@ -35,14 +35,16 @@ jobs:
               format: 'table'
               exit-code: '1'
               vuln-type: 'os,library'
-              output: 'vulnerability_report.json'
+              output: text.txt
               severity: 'CRITICAL,HIGH'
-          - name: Upload
+          - name: Send txt scan report
             if: failure()
-            uses: actions/upload-artifact@v2
-            with: 
-              name: vulnerability_report
-              path: /github/workspace/vulnerability_report.json
+            uses: MeilCli/slack-upload-file@v3
+            with:
+               slack_token: ${{ secrets.TEST_TOKEN }}
+               channel_id: ${{ secrets.TEST_CHANNEL_ID }}
+               file_path: 'text.txt'
+               initial_comment: 'Scan report by '
           
     failed-scan:
       runs-on: ubuntu-latest
