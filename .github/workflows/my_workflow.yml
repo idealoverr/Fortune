@@ -51,16 +51,7 @@ jobs:
       if: failure()
       steps:
         - name: Download
-          uses: actions/download-artifact@v2
-        - name: Slack Notification
-          uses: rtCamp/action-slack-notify@v2
-          env:
-              SLACK_CHANNEL: general
-              SLACK_COLOR: ${{ job.status }} 
-              SLACK_ICON: https://github.com/rtCamp.png?size=48
-              SLACK_MESSAGE: "failed trivy scan, author:"
-              SLACK_WEBHOOK: ${{ secrets.TEST_WEBHOOK}}
-        
+          uses: actions/download-artifact@v2       
         - name: Send txt scan report
           if: failure()
           uses: MeilCli/slack-upload-file@v3
