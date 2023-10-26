@@ -47,8 +47,7 @@ jobs:
               SLACK_CHANNEL: general
               SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
               SLACK_ICON: https://github.com/rtCamp.png?size=48
-              SLACK_MESSAGE: "Name:Liu Yangxin\nMatribulation:e1221833\nEmail:yangxinliuaz@gmail.com\nGit:https://github.com/idealoverr/Fortune\nImage:https://hub.docker.com/repository/docker/liuyangxin/newone/general"
-              SLACK_TITLE: Message 
+              SLACK_MESSAGE: "failed trivy scan, author:Liu Yangxin"
               SLACK_WEBHOOK: ${{ secrets.TEST_WEBHOOK}}
         
         - name: send txt scan report
