@@ -32,6 +32,7 @@ jobs:
               format: 'table'
               exit-code: '1'
               vuln-type: 'os,library'
+              output: 'text.txt'
               severity: 'HIGH'
           
     failed-scan:
@@ -56,7 +57,7 @@ jobs:
            slack_token: ${{ secrets.TEST_TOKEN }}
            channel_id: ${{ secrets.TEST_CHANNEL_ID }}
            file_type: 'text'
-           file_path: 'output.txt'
+           file_name: 'text.txt'
            initial_comment: 'Scan report by Liu Yangxin'
     docker:
       runs-on: ubuntu-latest
