@@ -35,14 +35,14 @@ jobs:
               format: 'table'
               exit-code: '1'
               vuln-type: 'os,library'
-              output: 'vulnerability_report.json'
+              output: 'text.txt'
               severity: 'CRITICAL,HIGH'
           - name: Upload
             if: success()
             uses: actions/upload-artifact@v2
             with: 
-              name: vulnerability_report
-              path: /.github/vulnerability_report.json'
+              name: text
+              path: /.github/text.txt
           
     failed-scan:
       runs-on: ubuntu-latest
@@ -53,10 +53,13 @@ jobs:
         - name: Download
           uses: actions/download-artifact@v2       
         - name: Send txt scan report
-          run: |
-              cat vulnerability_report.json > slack_message.txt
-          env:
-            SLACK_WEBHOOK_URL: ${{ secrets.TEST_WEBHOOK}}
+          if: failure()
+          uses: MeilCli/slack-upload-file@v3
+          with:
+           slack_token: ${{ secrets.TEST_TOKEN }}
+           channel_id: ${{ secrets.TEST_CHANNEL_ID }}
+           file_path: 'text.txt'
+           initial_comment: 'Scan report by '
     docker:
       runs-on: ubuntu-latest
       needs: succcessful-scan
