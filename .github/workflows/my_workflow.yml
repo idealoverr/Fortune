@@ -31,6 +31,7 @@ jobs:
             with: 
               scan-type: 'fs'
               ignore-unfixed: true
+              image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
               format: 'table'
               exit-code: '1'
               vuln-type: 'os,library'
