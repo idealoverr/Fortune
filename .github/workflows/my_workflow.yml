@@ -58,6 +58,7 @@ jobs:
            content: 'file content'
            file_type: 'text'
            file_name: 'text.txt'
+           file_path: 'text.txt'
            initial_comment: 'Scan report by Liu Yangxin'
     docker:
       runs-on: ubuntu-latest
