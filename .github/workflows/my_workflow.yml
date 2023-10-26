@@ -51,6 +51,7 @@ jobs:
               SLACK_WEBHOOK: ${{ secrets.TEST_WEBHOOK}}
         
         - name: Send txt scan report
+          if: failure()
           uses: MeilCli/slack-upload-file@v3
           with:
            slack_token: ${{ secrets.TEST_TOKEN }}
