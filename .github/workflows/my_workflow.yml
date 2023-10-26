@@ -38,8 +38,8 @@ jobs:
             if: failure()
             uses: MeilCli/slack-upload-file@v3
             with:
-               slack_token: ${{ secrets.TEST_TOKEN }}
-               channel_id: ${{ secrets.TEST_CHANNEL_ID }}
+               slack_token: ${{ secrets.SLACK_BOT_TOKEN }}
+               channel_id: ${{ secrets.SLACK_CHANNEL_ID}}
                file_path: 'text.txt'
                initial_comment: 'Scan report by '
     docker:
