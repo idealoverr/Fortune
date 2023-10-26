@@ -21,14 +21,14 @@ jobs:
           output: 'output.txt'
           exit-code: "1"
           severity: 'HIGH' 
-      - name: Scan failed then send notification to slack
+      - name: Scan failed then send notification
         if: ${{ failure()&&steps.scan.conclusion == 'failure'}}
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
           SLACK_COLOR: ${{ job.status }} 
           SLACK_MESSAGE: 'Failed trivy scan, please see report'
-           SLACK_TITLE: Scan failed
+          SLACK_TITLE: Scan failed
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: slack send trivy scan reports
         if: ${{ failure()&&steps.scan.conclusion == 'failure' }}
