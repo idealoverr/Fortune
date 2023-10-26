@@ -42,7 +42,7 @@ jobs:
             uses: actions/upload-artifact@v2
             with: 
               name: vulnerability_report
-              path: /.github/vulnerability_report.json'
+              path: D:/a.homework/fortunes/.github/workflows/vulnerability_report.json
           
     failed-scan:
       runs-on: ubuntu-latest
