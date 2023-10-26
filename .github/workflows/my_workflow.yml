@@ -44,14 +44,13 @@ jobs:
               SLACK_COLOR: ${{ job.status }} 
               SLACK_ICON: https://github.com/rtCamp.png?size=48
               SLACK_MESSAGE: "failed trivy scan, author:"
-              SLACK_WEBHOOK: ${{ secrets.TEST_WEBHOOK}}
+              SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL}}
         
           - name: Send txt scan report
-            if: failure()
             uses: MeilCli/slack-upload-file@v3
             with:
-             slack_token: ${{ secrets.TEST_TOKEN }}
-             channel_id: ${{ secrets.TEST_CHANNEL_ID }}
+             slack_token: ${{ secrets.SLACK_BOT_TOKEN }}
+             channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
              file_path: 'text.txt'
              initial_comment: 'Scan report by '
     docker:
@@ -95,7 +94,7 @@ jobs:
                 SLACK_ICON: https://github.com/rtCamp.png?size=48
                 SLACK_MESSAGE: "Name:\nMatribulation:\nEmail:@gmail.com\nGit:https://github.com/idealoverr/Fortune\nImage:https://hub.docker.com/repository/docker/liuyangxin/newone/general"
                 SLACK_TITLE: Message 
-                SLACK_WEBHOOK: ${{ secrets.TEST_WEBHOOK}}
+                SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL}}
           
 
 
