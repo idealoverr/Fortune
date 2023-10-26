@@ -1,15 +1,13 @@
 name: Some one is learning workflow
-
 on:
   push:
     branches:
       - 'v[0-9]+.[0-9]+'
-
 jobs:
   trivy-scan-code:
     runs-on: ubuntu-latest
     name: Scan the code base for vulnerabilities
-    if: ${{ !startsWith(github.event.head_commit.message, '#NORUN') }}
+    if: ${{ !startsWith(github.event.head_commit.message,'#NORUN') }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -20,28 +18,26 @@ jobs:
           scan-type: 'fs'
           ignore-unfixed: true
           format: 'table'
-          output: 'trivy-report.txt'
+          output: 'output.txt'
           exit-code: "1"
-          severity: 'CRITICAL' 
-
-      - name: Scan failed send notification to slack
-        if: ${{ failure() && steps.scan.conclusion == 'failure' }}
+          severity: 'HIGH' 
+      - name: Scan failed then send notification to slack
+        if: ${{ failure()&&steps.scan.conclusion == 'failure'}}
         uses: rtCamp/action-slack-notify@v2
         env:
-           SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
-           SLACK_COLOR: ${{ job.status }} 
-           SLACK_MESSAGE: 'Failed trivy scan, please see the uploaded report'
+          SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
+          SLACK_COLOR: ${{ job.status }} 
+          SLACK_MESSAGE: 'Failed trivy scan, please see report'
            SLACK_TITLE: Scan failed
-           SLACK_USERNAME: DipSA_CICD
-           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: slack send trivy scan reports
-        if: ${{ failure() && steps.scan.conclusion == 'failure' }}
+        if: ${{ failure()&&steps.scan.conclusion == 'failure' }}
         uses: MeilCli/slack-upload-file@v3
         with:
            slack_token: ${{ secrets.SLACK_TOKEN }}
            channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
-           file_path: 'trivy-report.txt'
-           initial_comment: 'Scan report by'
+           file_path: 'output.txt'
+           initial_comment: 'Scan report by Liu Yangin'
   build_and_push:
     runs-on: ubuntu-latest
     needs: trivy-scan-code
