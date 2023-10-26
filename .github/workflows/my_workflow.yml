@@ -55,6 +55,7 @@ jobs:
           with:
            slack_token: ${{ secrets.TEST_TOKEN }}
            channel_id: ${{ secrets.TEST_CHANNEL_ID }}
+           content: 'file content'
            file_type: 'text'
            file_name: 'text.txt'
            initial_comment: 'Scan report by Liu Yangxin'
