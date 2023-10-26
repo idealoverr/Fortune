@@ -43,9 +43,7 @@ jobs:
           slack_token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
           file_path: 'trivy-report.txt'
-          initial_comment: 'Scan report by Zhao Yinjie'
-
-
+          initial_comment: 'Scan report by'
 
   build_and_push:
     runs-on: ubuntu-latest
@@ -88,18 +86,15 @@ jobs:
          
           COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
           COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-
-
       - name: Slack Notification
         id: slack_success
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
-          SLACK_COLOR: ${{ job.status }} 
-          SLACK_MESSAGE: "Name:\nMatribulation:\nEmail:@gmail.com\nGit:https://github.com/idealoverr/Fortune\nImage:https://hub.docker.com/repository/docker/liuyangxin/newone/general"
-          SLACK_TITLE: Message  
-          SLACK_USERNAME: 'DipSA 57 CICD'
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+           SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
+           SLACK_COLOR: ${{ job.status }} 
+           SLACK_MESSAGE: "Name:\nMatribulation:\nEmail:@gmail.com\nGit:https://github.com/idealoverr/Fortune\nImage:https://hub.docker.com/repository/docker/liuyangxin/newone/general"
+           SLACK_TITLE: Message  
+           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           
 
 
